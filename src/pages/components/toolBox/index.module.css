@@ -1,0 +1,49 @@
+.toolboxContainer {
+    padding: 1.25rem;
+    position: absolute;
+    top: 25%;
+    left: 1.25rem;
+    width: 16rem;
+    border-radius: 0.375rem;
+    box-shadow: theme('colors.shadow1');
+    border: 1px solid theme('colors.border1');
+    background-color: theme('colors.background1');
+}
+
+.toolItem {
+    margin-bottom: 1.25rem;
+}
+
+.toolText {
+    font-size: 11px;
+    color: theme('colors.text1');
+}
+
+.itemContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.colorBox {
+    height: 1.25rem;
+    width: 1.25rem;
+    margin-right: 0.25rem;
+    border-radius: 0.125rem;
+    cursor: pointer;
+}
+
+.colorBox:hover,
+.colorBox.active {
+    border: 1.5px solid theme('colors.border2');
+    box-shadow: theme('colors.shadow2');
+}
+
+@media screen and (max-width: 640px) {
+    .toolboxContainer {
+        top: unset;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+    }
+}
