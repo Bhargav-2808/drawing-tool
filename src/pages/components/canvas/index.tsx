@@ -47,6 +47,15 @@ const Canvas = () => {
       return;
     }
 
+    if (actionMenuItem === MENU_ITEMS.CLEAR) {
+      context.fillStyle = "white";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      localStorage.removeItem('canvasData');
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      drawHistory.current = [imageData];
+      historyPointer.current = 0;
+    }
+
     if (
       actionMenuItem === MENU_ITEMS.UNDO ||
       actionMenuItem === MENU_ITEMS.REDO
@@ -95,12 +104,24 @@ const Canvas = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    context.fillStyle = "white";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    drawHistory.current = [imageData];
-    historyPointer.current = 0;
+    // Load saved canvas data if it exists
+    const savedCanvasData = localStorage.getItem('canvasData');
+    if (savedCanvasData) {
+      const img = new Image();
+      img.src = savedCanvasData;
+      img.onload = () => {
+        context.drawImage(img, 0, 0);
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        drawHistory.current = [imageData];
+        historyPointer.current = 0;
+      };
+    } else {
+      context.fillStyle = "white";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      drawHistory.current = [imageData];
+      historyPointer.current = 0;
+    }
 
     const beginPath = (x: number, y: number) => {
       context?.beginPath();
@@ -134,6 +155,8 @@ const Canvas = () => {
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
       drawHistory.current.push(imageData);
       historyPointer.current = drawHistory.current.length - 1;
+      
+      localStorage.setItem('canvasData', canvas.toDataURL());
     };
 
     canvas.addEventListener("mousedown", handleMouseDown);

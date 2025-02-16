@@ -5,7 +5,6 @@ const COLORS = {
   BLUE: "blue",
   ORANGE: "orange",
   YELLOW: "yellow",
-  WHITE: "white",
 };
 
 const MENU_ITEMS = {
@@ -14,6 +13,7 @@ const MENU_ITEMS = {
   UNDO: "UNDO",
   REDO: "REDO",
   DOWNLOAD: "DOWNLOAD",
+  CLEAR: "CLEAR",
 };
 
 interface MenuItem {
@@ -45,6 +45,11 @@ const MENU_LIST: MenuItem[] = [
   {
     name: MENU_ITEMS.DOWNLOAD,
     icon: "https://www.svgrepo.com/show/511882/download-1453.svg",
+    isAction: true,
+  },
+  {
+    name: MENU_ITEMS.CLEAR,
+    icon: "https://www.svgrepo.com/show/436706/clear-fill.svg",
     isAction: true,
   },
 ];
